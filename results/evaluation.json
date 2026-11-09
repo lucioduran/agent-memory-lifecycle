@@ -1,0 +1,654 @@
+{
+  "fixture_sha256": "05a8e826369607eb05d5bcf9f67783db6161ed565e35d05f0313a983c37459dc",
+  "summary": {
+    "cases": 18,
+    "policy_pass": 18,
+    "baseline_pass": 8
+  },
+  "outcomes": [
+    {
+      "case": "single fact",
+      "category": "control",
+      "expected": [
+        "a"
+      ],
+      "actual": [
+        "a"
+      ],
+      "pass": true,
+      "baseline": [
+        "a"
+      ],
+      "baseline_pass": true,
+      "selection": {
+        "session": "one",
+        "at": "2026-02-01T00:00:00Z",
+        "query": "office",
+        "selected": [
+          {
+            "id": "a",
+            "key": "office",
+            "value": "North",
+            "source": "original fictional fixture",
+            "score": 0.7071067811865475
+          }
+        ],
+        "conflicts": [],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "selected",
+            "score": 0.7071067811865475
+          }
+        ]
+      }
+    },
+    {
+      "case": "newer independent fact",
+      "category": "update",
+      "expected": [
+        "b"
+      ],
+      "actual": [
+        "b"
+      ],
+      "pass": true,
+      "baseline": [
+        "a"
+      ],
+      "baseline_pass": false,
+      "selection": {
+        "session": "one",
+        "at": "2026-02-01T00:00:00Z",
+        "query": "office",
+        "selected": [
+          {
+            "id": "b",
+            "key": "office",
+            "value": "South",
+            "source": "original fictional fixture",
+            "score": 0.7071067811865475
+          }
+        ],
+        "conflicts": [
+          {
+            "key": "office",
+            "ids": [
+              "a",
+              "b"
+            ],
+            "chosen": "b"
+          }
+        ],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "older_fact"
+          },
+          {
+            "id": "b",
+            "reason": "selected",
+            "score": 0.7071067811865475
+          }
+        ]
+      }
+    },
+    {
+      "case": "before update",
+      "category": "update",
+      "expected": [
+        "a"
+      ],
+      "actual": [
+        "a"
+      ],
+      "pass": true,
+      "baseline": [
+        "a"
+      ],
+      "baseline_pass": true,
+      "selection": {
+        "session": "one",
+        "at": "2026-01-01T12:00:00Z",
+        "query": "office",
+        "selected": [
+          {
+            "id": "a",
+            "key": "office",
+            "value": "North",
+            "source": "original fictional fixture",
+            "score": 0.7071067811865475
+          }
+        ],
+        "conflicts": [],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "selected",
+            "score": 0.7071067811865475
+          },
+          {
+            "id": "b",
+            "reason": "not_yet_valid"
+          }
+        ]
+      }
+    },
+    {
+      "case": "correction effective boundary",
+      "category": "correction",
+      "expected": [
+        "b"
+      ],
+      "actual": [
+        "b"
+      ],
+      "pass": true,
+      "baseline": [
+        "a"
+      ],
+      "baseline_pass": false,
+      "selection": {
+        "session": "one",
+        "at": "2026-01-02T00:00:00Z",
+        "query": "office",
+        "selected": [
+          {
+            "id": "b",
+            "key": "office",
+            "value": "South",
+            "source": "original fictional fixture",
+            "score": 0.7071067811865475
+          }
+        ],
+        "conflicts": [],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "corrected"
+          },
+          {
+            "id": "b",
+            "reason": "selected",
+            "score": 0.7071067811865475
+          }
+        ]
+      }
+    },
+    {
+      "case": "expired correction no resurrection",
+      "category": "correction",
+      "expected": [],
+      "actual": [],
+      "pass": true,
+      "baseline": [
+        "a"
+      ],
+      "baseline_pass": false,
+      "selection": {
+        "session": "one",
+        "at": "2026-02-01T00:00:00Z",
+        "query": "office",
+        "selected": [],
+        "conflicts": [],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "corrected"
+          },
+          {
+            "id": "b",
+            "reason": "expired"
+          }
+        ]
+      }
+    },
+    {
+      "case": "deleted correction no resurrection",
+      "category": "deletion",
+      "expected": [],
+      "actual": [],
+      "pass": true,
+      "baseline": [
+        "a"
+      ],
+      "baseline_pass": false,
+      "selection": {
+        "session": "one",
+        "at": "2026-02-01T00:00:00Z",
+        "query": "office",
+        "selected": [],
+        "conflicts": [],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "corrected"
+          },
+          {
+            "id": "b",
+            "reason": "deleted"
+          }
+        ]
+      }
+    },
+    {
+      "case": "deleted original",
+      "category": "deletion",
+      "expected": [],
+      "actual": [],
+      "pass": true,
+      "baseline": [
+        "a"
+      ],
+      "baseline_pass": false,
+      "selection": {
+        "session": "one",
+        "at": "2026-02-01T00:00:00Z",
+        "query": "office",
+        "selected": [],
+        "conflicts": [],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "deleted"
+          }
+        ]
+      }
+    },
+    {
+      "case": "deletion applies to past queries",
+      "category": "deletion",
+      "expected": [],
+      "actual": [],
+      "pass": true,
+      "baseline": [
+        "a"
+      ],
+      "baseline_pass": false,
+      "selection": {
+        "session": "one",
+        "at": "2026-01-01T00:00:00Z",
+        "query": "office",
+        "selected": [],
+        "conflicts": [],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "deleted"
+          }
+        ]
+      }
+    },
+    {
+      "case": "expiration boundary",
+      "category": "expiration",
+      "expected": [],
+      "actual": [],
+      "pass": true,
+      "baseline": [
+        "a"
+      ],
+      "baseline_pass": false,
+      "selection": {
+        "session": "one",
+        "at": "2026-02-01T00:00:00Z",
+        "query": "office",
+        "selected": [],
+        "conflicts": [],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "expired"
+          }
+        ]
+      }
+    },
+    {
+      "case": "future assertion",
+      "category": "validity",
+      "expected": [],
+      "actual": [],
+      "pass": true,
+      "baseline": [
+        "b"
+      ],
+      "baseline_pass": false,
+      "selection": {
+        "session": "one",
+        "at": "2026-01-01T00:00:00Z",
+        "query": "office",
+        "selected": [],
+        "conflicts": [],
+        "trace": [
+          {
+            "id": "b",
+            "reason": "not_yet_valid"
+          }
+        ]
+      }
+    },
+    {
+      "case": "independent expiry fallback",
+      "category": "expiration",
+      "expected": [
+        "a"
+      ],
+      "actual": [
+        "a"
+      ],
+      "pass": true,
+      "baseline": [
+        "a"
+      ],
+      "baseline_pass": true,
+      "selection": {
+        "session": "one",
+        "at": "2026-02-01T00:00:00Z",
+        "query": "office",
+        "selected": [
+          {
+            "id": "a",
+            "key": "office",
+            "value": "North",
+            "source": "original fictional fixture",
+            "score": 0.7071067811865475
+          }
+        ],
+        "conflicts": [],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "selected",
+            "score": 0.7071067811865475
+          },
+          {
+            "id": "b",
+            "reason": "expired"
+          }
+        ]
+      }
+    },
+    {
+      "case": "other session invisible",
+      "category": "isolation",
+      "expected": [],
+      "actual": [],
+      "pass": true,
+      "baseline": [],
+      "baseline_pass": true,
+      "selection": {
+        "session": "one",
+        "at": "2026-02-01T00:00:00Z",
+        "query": "office",
+        "selected": [],
+        "conflicts": [],
+        "trace": []
+      }
+    },
+    {
+      "case": "other session no ranking influence",
+      "category": "isolation",
+      "expected": [
+        "a"
+      ],
+      "actual": [
+        "a"
+      ],
+      "pass": true,
+      "baseline": [
+        "a"
+      ],
+      "baseline_pass": true,
+      "selection": {
+        "session": "one",
+        "at": "2026-02-01T00:00:00Z",
+        "query": "office",
+        "selected": [
+          {
+            "id": "a",
+            "key": "office",
+            "value": "North",
+            "source": "original fictional fixture",
+            "score": 0.7071067811865475
+          }
+        ],
+        "conflicts": [],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "selected",
+            "score": 0.7071067811865475
+          }
+        ]
+      }
+    },
+    {
+      "case": "absent vocabulary abstention",
+      "category": "retrieval",
+      "expected": [],
+      "actual": [],
+      "pass": true,
+      "baseline": [],
+      "baseline_pass": true,
+      "selection": {
+        "session": "one",
+        "at": "2026-02-01T00:00:00Z",
+        "query": "unrelated",
+        "selected": [],
+        "conflicts": [],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "no_overlap",
+            "score": 0.0
+          }
+        ]
+      }
+    },
+    {
+      "case": "timestamp tie",
+      "category": "conflict",
+      "expected": [
+        "z"
+      ],
+      "actual": [
+        "z"
+      ],
+      "pass": true,
+      "baseline": [
+        "a"
+      ],
+      "baseline_pass": false,
+      "selection": {
+        "session": "one",
+        "at": "2026-02-01T00:00:00Z",
+        "query": "office",
+        "selected": [
+          {
+            "id": "z",
+            "key": "office",
+            "value": "West",
+            "source": "original fictional fixture",
+            "score": 0.7071067811865475
+          }
+        ],
+        "conflicts": [
+          {
+            "key": "office",
+            "ids": [
+              "a",
+              "z"
+            ],
+            "chosen": "z"
+          }
+        ],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "older_fact"
+          },
+          {
+            "id": "z",
+            "reason": "selected",
+            "score": 0.7071067811865475
+          }
+        ]
+      }
+    },
+    {
+      "case": "concurrent corrections",
+      "category": "conflict",
+      "expected": [
+        "c"
+      ],
+      "actual": [
+        "c"
+      ],
+      "pass": true,
+      "baseline": [
+        "a"
+      ],
+      "baseline_pass": false,
+      "selection": {
+        "session": "one",
+        "at": "2026-02-01T00:00:00Z",
+        "query": "office",
+        "selected": [
+          {
+            "id": "c",
+            "key": "office",
+            "value": "West",
+            "source": "original fictional fixture",
+            "score": 0.7071067811865475
+          }
+        ],
+        "conflicts": [
+          {
+            "key": "office",
+            "ids": [
+              "b",
+              "c"
+            ],
+            "chosen": "c"
+          }
+        ],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "corrected"
+          },
+          {
+            "id": "b",
+            "reason": "older_fact"
+          },
+          {
+            "id": "c",
+            "reason": "selected",
+            "score": 0.7071067811865475
+          }
+        ]
+      }
+    },
+    {
+      "case": "retrieval chooses matching key",
+      "category": "retrieval",
+      "expected": [
+        "b"
+      ],
+      "actual": [
+        "b"
+      ],
+      "pass": true,
+      "baseline": [
+        "b"
+      ],
+      "baseline_pass": true,
+      "selection": {
+        "session": "one",
+        "at": "2026-02-01T00:00:00Z",
+        "query": "lunch",
+        "selected": [
+          {
+            "id": "b",
+            "key": "lunch",
+            "value": "noon",
+            "source": "original fictional fixture",
+            "score": 0.7071067811865475
+          }
+        ],
+        "conflicts": [],
+        "trace": [
+          {
+            "id": "a",
+            "reason": "no_overlap",
+            "score": 0.0
+          },
+          {
+            "id": "b",
+            "reason": "selected",
+            "score": 0.7071067811865475
+          }
+        ]
+      }
+    },
+    {
+      "case": "late observation not a valid-time override",
+      "category": "update",
+      "expected": [
+        "b"
+      ],
+      "actual": [
+        "b"
+      ],
+      "pass": true,
+      "baseline": [
+        "b"
+      ],
+      "baseline_pass": true,
+      "selection": {
+        "session": "one",
+        "at": "2026-02-01T00:00:00Z",
+        "query": "office",
+        "selected": [
+          {
+            "id": "b",
+            "key": "office",
+            "value": "South",
+            "source": "original fictional fixture",
+            "score": 0.7071067811865475
+          }
+        ],
+        "conflicts": [
+          {
+            "key": "office",
+            "ids": [
+              "b",
+              "c"
+            ],
+            "chosen": "b"
+          }
+        ],
+        "trace": [
+          {
+            "id": "b",
+            "reason": "selected",
+            "score": 0.7071067811865475
+          },
+          {
+            "id": "c",
+            "reason": "older_fact"
+          }
+        ]
+      }
+    }
+  ],
+  "environment": {
+    "python": "3.11.13 (main, Sep 18 2025, 19:31:08) [Clang 20.1.4 ]",
+    "platform": "macOS-26.7.1-x86_64-i386-64bit",
+    "cpu": "Intel(R) Xeon(R) W-3223 CPU @ 3.50GHz",
+    "threads": 1,
+    "runtime_dependencies": [],
+    "git_commit": "7b9a6b77399c38e461544c7897f812bab6e96ebd"
+  },
+  "elapsed_seconds": 0.004563410999253392
+}

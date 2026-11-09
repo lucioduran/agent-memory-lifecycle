@@ -56,7 +56,7 @@ The evaluator refuses to overwrite an existing report. On Windows activate `.ven
 
 ## Results
 
-The recorded [local evaluation](results/evaluation.json) contains all 18 scenario traces and a session-scoped append-only lexical baseline. Results and hardware details are documented in [evaluation methodology](docs/evaluation.md). Counts describe these fixed, author-known cases only.
+The recorded [local evaluation](results/evaluation.json) passed 18/18 policy scenarios; the session-scoped append-only lexical baseline passed 8/18. All 18 scenario traces are included. Results and hardware details are documented in [evaluation methodology](docs/evaluation.md). Counts describe these fixed, author-known cases only.
 
 ## Testing
 
