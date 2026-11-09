@@ -1,0 +1,22 @@
+[
+  {
+    "id": "a",
+    "session": "one",
+    "kind": "assert",
+    "recorded_at": "2026-01-01T00:00:00Z",
+    "valid_from": "2026-01-01T00:00:00Z",
+    "key": "office",
+    "value": "North",
+    "source": "original fictional fixture"
+  },
+  {
+    "id": "b",
+    "session": "one",
+    "kind": "assert",
+    "recorded_at": "2026-01-01T00:00:00Z",
+    "valid_from": "2026-01-02T00:00:00Z",
+    "key": "office",
+    "value": "South",
+    "source": "original fictional fixture"
+  }
+]

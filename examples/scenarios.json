@@ -1,0 +1,545 @@
+[
+  {
+    "name": "single fact",
+    "category": "control",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      }
+    ],
+    "expected": [
+      "a"
+    ],
+    "at": "2026-02-01T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "newer independent fact",
+    "category": "update",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      },
+      {
+        "id": "b",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-02T00:00:00Z",
+        "key": "office",
+        "value": "South",
+        "source": "original fictional fixture"
+      }
+    ],
+    "expected": [
+      "b"
+    ],
+    "at": "2026-02-01T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "before update",
+    "category": "update",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      },
+      {
+        "id": "b",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-02T00:00:00Z",
+        "key": "office",
+        "value": "South",
+        "source": "original fictional fixture"
+      }
+    ],
+    "expected": [
+      "a"
+    ],
+    "at": "2026-01-01T12:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "correction effective boundary",
+    "category": "correction",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      },
+      {
+        "id": "b",
+        "session": "one",
+        "kind": "correct",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-02T00:00:00Z",
+        "key": "office",
+        "value": "South",
+        "source": "original fictional fixture",
+        "target": "a",
+        "valid_until": "2026-01-03T00:00:00Z"
+      }
+    ],
+    "expected": [
+      "b"
+    ],
+    "at": "2026-01-02T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "expired correction no resurrection",
+    "category": "correction",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      },
+      {
+        "id": "b",
+        "session": "one",
+        "kind": "correct",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-02T00:00:00Z",
+        "key": "office",
+        "value": "South",
+        "source": "original fictional fixture",
+        "target": "a",
+        "valid_until": "2026-01-03T00:00:00Z"
+      }
+    ],
+    "expected": [],
+    "at": "2026-02-01T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "deleted correction no resurrection",
+    "category": "deletion",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      },
+      {
+        "id": "b",
+        "session": "one",
+        "kind": "correct",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-02T00:00:00Z",
+        "key": "office",
+        "value": "South",
+        "source": "original fictional fixture",
+        "target": "a",
+        "valid_until": "2026-01-03T00:00:00Z"
+      },
+      {
+        "id": "d",
+        "session": "one",
+        "kind": "delete",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-03T00:00:00Z",
+        "key": "",
+        "value": "",
+        "source": "",
+        "target": "b"
+      }
+    ],
+    "expected": [],
+    "at": "2026-02-01T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "deleted original",
+    "category": "deletion",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      },
+      {
+        "id": "d",
+        "session": "one",
+        "kind": "delete",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "",
+        "value": "",
+        "source": "",
+        "target": "a"
+      }
+    ],
+    "expected": [],
+    "at": "2026-02-01T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "deletion applies to past queries",
+    "category": "deletion",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      },
+      {
+        "id": "d",
+        "session": "one",
+        "kind": "delete",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "",
+        "value": "",
+        "source": "",
+        "target": "a"
+      }
+    ],
+    "expected": [],
+    "at": "2026-01-01T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "expiration boundary",
+    "category": "expiration",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture",
+        "valid_until": "2026-02-01T00:00:00Z"
+      }
+    ],
+    "expected": [],
+    "at": "2026-02-01T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "future assertion",
+    "category": "validity",
+    "events": [
+      {
+        "id": "b",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-02T00:00:00Z",
+        "key": "office",
+        "value": "South",
+        "source": "original fictional fixture"
+      }
+    ],
+    "expected": [],
+    "at": "2026-01-01T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "independent expiry fallback",
+    "category": "expiration",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      },
+      {
+        "id": "b",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-02T00:00:00Z",
+        "key": "office",
+        "value": "South",
+        "source": "original fictional fixture",
+        "valid_until": "2026-01-03T00:00:00Z"
+      }
+    ],
+    "expected": [
+      "a"
+    ],
+    "at": "2026-02-01T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "other session invisible",
+    "category": "isolation",
+    "events": [
+      {
+        "id": "secret",
+        "session": "two",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      }
+    ],
+    "expected": [],
+    "at": "2026-02-01T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "other session no ranking influence",
+    "category": "isolation",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      },
+      {
+        "id": "secret",
+        "session": "two",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "office office",
+        "source": "original fictional fixture"
+      }
+    ],
+    "expected": [
+      "a"
+    ],
+    "at": "2026-02-01T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "absent vocabulary abstention",
+    "category": "retrieval",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      }
+    ],
+    "expected": [],
+    "at": "2026-02-01T00:00:00Z",
+    "session": "one",
+    "query": "unrelated"
+  },
+  {
+    "name": "timestamp tie",
+    "category": "conflict",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      },
+      {
+        "id": "z",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "West",
+        "source": "original fictional fixture"
+      }
+    ],
+    "expected": [
+      "z"
+    ],
+    "at": "2026-02-01T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "concurrent corrections",
+    "category": "conflict",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      },
+      {
+        "id": "b",
+        "session": "one",
+        "kind": "correct",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-02T00:00:00Z",
+        "key": "office",
+        "value": "South",
+        "source": "original fictional fixture",
+        "target": "a"
+      },
+      {
+        "id": "c",
+        "session": "one",
+        "kind": "correct",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-03T00:00:00Z",
+        "key": "office",
+        "value": "West",
+        "source": "original fictional fixture",
+        "target": "a"
+      }
+    ],
+    "expected": [
+      "c"
+    ],
+    "at": "2026-02-01T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  },
+  {
+    "name": "retrieval chooses matching key",
+    "category": "retrieval",
+    "events": [
+      {
+        "id": "a",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "North",
+        "source": "original fictional fixture"
+      },
+      {
+        "id": "b",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "lunch",
+        "value": "noon",
+        "source": "original fictional fixture"
+      }
+    ],
+    "expected": [
+      "b"
+    ],
+    "at": "2026-02-01T00:00:00Z",
+    "session": "one",
+    "query": "lunch"
+  },
+  {
+    "name": "late observation not a valid-time override",
+    "category": "update",
+    "events": [
+      {
+        "id": "b",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-01T00:00:00Z",
+        "valid_from": "2026-01-02T00:00:00Z",
+        "key": "office",
+        "value": "South",
+        "source": "original fictional fixture"
+      },
+      {
+        "id": "c",
+        "session": "one",
+        "kind": "assert",
+        "recorded_at": "2026-01-05T00:00:00Z",
+        "valid_from": "2026-01-01T00:00:00Z",
+        "key": "office",
+        "value": "East",
+        "source": "original fictional fixture"
+      }
+    ],
+    "expected": [
+      "b"
+    ],
+    "at": "2026-02-01T00:00:00Z",
+    "session": "one",
+    "query": "office"
+  }
+]

@@ -97,6 +97,15 @@ class Ledger:
     def replay(cls, data: list[dict[str, Any]]) -> Ledger:
         # Validate redacted exports with their structural links before applying erasure.
         ledger = cls()
+        if not isinstance(data, list) or not all(isinstance(e, dict) for e in data):
+            raise ValueError("ledger must be a list of event objects")
+        for raw in data:
+            try:
+                fields = asdict(Event(**raw))
+            except TypeError as exc:
+                raise ValueError("invalid event fields") from exc
+            if any(type(v) is not (bool if k == "redacted" else str) for k, v in fields.items()):
+                raise ValueError("invalid event field types")
         deleted = {e.get("target") for e in data if e.get("kind") == "delete"}
         erased = {e.get("id") for e in data if e.get("redacted") is True}
         keys: dict[str, str] = {}
@@ -117,7 +126,9 @@ class Ledger:
                 # Erased keys cannot be compared; validate the remaining structural contract.
                 target = next((e for e in ledger._events if e.id == item["target"]), None)
                 if target is not None:
-                    ledger._events[ledger._events.index(target)] = replace(target, key=item["key"])
+                    ledger._events[ledger._events.index(target)] = replace(
+                        target, key=item.get("key", "")
+                    )
             ledger.append(item)
             keys[str(item.get("id"))] = str(item.get("key", ""))
         return ledger
