@@ -69,7 +69,7 @@ python -m coverage report
 python -m scripts.evaluate results/evaluation.json --verify
 ```
 
-CI runs these checks on Linux, macOS and Windows with Python 3.11.9 and a 90% statement/branch coverage floor. Tests cover precedence, timezone boundaries, correction chains, expiry fallback, deletion payload removal, sanitized replay, malformed inputs, session isolation, CLI behavior and modified evidence.
+CI runs these checks on Ubuntu 24.04, macOS and Windows with Python 3.11.9 and a 90% statement/branch coverage floor. Tests cover precedence, timezone boundaries, correction chains, expiry fallback, deletion payload removal, sanitized replay, malformed inputs, session isolation, CLI behavior and modified evidence.
 
 ## Limitations
 
